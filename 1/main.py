@@ -47,8 +47,8 @@ class Hallgato:
         if not self.jegyek:
             return 0.0
 
-        return sum(self.jegyek) / len(self.jegyek)
-        # return math.avg(self.jegyek)
+        # return sum(self.jegyek) / len(self.jegyek)
+        return math.avg(self.jegyek)
 
     def __str__(self):
         return f"{self.nev} ({self.nkod}) - atlag: {self.atlag()}"
