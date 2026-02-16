@@ -24,7 +24,7 @@ class Kancsok:
         # tölt 1,3
         if a1 != 0 and a3 != self.max3:
             T = min(a1, self.max3 - a3)
-            gyerekek.append(("tölt 1-ből 3-be", (a1 - T, a2, a3 + T)))
+            gyerekek.append(("tölt 1-ből 3-ba", (a1 - T, a2, a3 + T)))
 
         # tölt 2,1
         if a2 != 0 and a1 != self.max1:
@@ -34,18 +34,37 @@ class Kancsok:
         # tölt 2,3
         if a2 != 0 and a3 != self.max3:
             T = min(a2, self.max3 - a3)
-            gyerekek.append(("tölt 2-ből 3-be", (a1 + T, a2, a3 - T)))
+            gyerekek.append(("tölt 2-ből 3-ba", (a1, a2 - T, a3 + T)))
 
         # tölt 3,1
         if a3 != 0 and a1 != self.max1:
             T = min(a3, self.max1 - a1)
-            gyerekek.append(("tölt 1-ből 2-be", (a1 - T, a2 + T, a3)))
+            gyerekek.append(("tölt 3-bol 1-be", (a1 + T, a2, a3 - T)))
+
+        # tölt 3,2
+        if a3 != 0 and a2 != self.max2:
+            T = min(a3, self.max2 - a2)
+            gyerekek.append(("tölt 3-bol 2-be", (a1, a2 + T, a3 - T)))
 
         return gyerekek
 
 
 def main():
     feladat = Kancsok((0, 0, 8), 4)
+
+    kancso = feladat.kezdo
+    visited = {kancso}
+    while not feladat.celteszt(kancso):
+        operations = feladat.rakovetkezo(kancso)
+
+        for text, state in operations:
+            if state not in visited:
+                kancso = state
+                visited.add(state)
+                print(text, "->", kancso)
+                break
+
+    print("Megoldas: ", kancso)
 
 
 if __name__ == "__main__":
