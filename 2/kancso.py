@@ -12,6 +12,7 @@ class Kancsok:
     def celteszt(self, a: tuple):  # a = (a1,a2,a3) állapot
         return a[0] == self.cel or a[1] == self.cel or a[2] == self.cel
 
+    """
     def rakovetkezo(self, a: tuple):
         gyerekek = []
         a1, a2, a3 = a
@@ -19,32 +20,51 @@ class Kancsok:
         # tölt 1,2
         if a1 != 0 and a2 != self.max2:
             T = min(a1, self.max2 - a2)
-            gyerekek.append(("tölt 1-ből 2-be", (a1 - T, a2 + T, a3)))
+            gyerekek.append(("tölt 1->2", (a1 - T, a2 + T, a3)))
 
         # tölt 1,3
         if a1 != 0 and a3 != self.max3:
             T = min(a1, self.max3 - a3)
-            gyerekek.append(("tölt 1-ből 3-ba", (a1 - T, a2, a3 + T)))
+            gyerekek.append(("tölt 1->3", (a1 - T, a2, a3 + T)))
 
         # tölt 2,1
         if a2 != 0 and a1 != self.max1:
             T = min(a2, self.max1 - a1)
-            gyerekek.append(("tölt 2-ből 1-be", (a1 + T, a2 - T, a3)))
+            gyerekek.append(("tölt 2->1", (a1 + T, a2 - T, a3)))
 
         # tölt 2,3
         if a2 != 0 and a3 != self.max3:
             T = min(a2, self.max3 - a3)
-            gyerekek.append(("tölt 2-ből 3-ba", (a1, a2 - T, a3 + T)))
+            gyerekek.append(("tölt 2->3", (a1, a2 - T, a3 + T)))
 
         # tölt 3,1
         if a3 != 0 and a1 != self.max1:
             T = min(a3, self.max1 - a1)
-            gyerekek.append(("tölt 3-bol 1-be", (a1 + T, a2, a3 - T)))
+            gyerekek.append(("tölt 3->1", (a1 + T, a2, a3 - T)))
 
         # tölt 3,2
         if a3 != 0 and a2 != self.max2:
             T = min(a3, self.max2 - a2)
-            gyerekek.append(("tölt 3-bol 2-be", (a1, a2 + T, a3 - T)))
+            gyerekek.append(("tölt 3->2", (a1, a2 + T, a3 - T)))
+
+        return gyerekek
+    """
+
+    def rakovetkezo(self, a: tuple):
+        gyerekek = []
+        maxok = (self.max1, self.max2, self.max3)
+
+        for i in range(3):
+            for j in range(3):
+                if i == j:
+                    continue
+
+                if a[i] != 0 and a[j] != maxok[j]:
+                    T = min(a[i], maxok[j] - a[j])
+                    uj = list(a)
+                    uj[i] -= T
+                    uj[j] += T
+                    gyerekek.append((f"tölt {i + 1}->{j + 1}", tuple(uj)))
 
         return gyerekek
 
