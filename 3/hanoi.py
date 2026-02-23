@@ -37,6 +37,8 @@ class Hanoi:
 def main():
     feladat = Hanoi(("P", "P", "P", "P", "P"), ("R", "R", "R", "R", "R"))
 
+    print(feladat.rakovetkezo(("P", "P")))
+
 
 if __name__ == "__main__":
     main()
