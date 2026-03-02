@@ -35,6 +35,8 @@ class Kiralyno:
 def main():
     feladat = Kiralyno((0, 0, 0, 0, 0, 0, 0, 0, 1), 9)
 
+    print(feladat.rakovetkezo(feladat.kezdo))
+
 
 if __name__ == "__main__":
     main()
