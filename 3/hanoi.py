@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from keres import *
+
 
 class Hanoi:
     def __init__(self, kezdo: tuple, cel: tuple):
@@ -37,6 +39,8 @@ class Hanoi:
 def main():
     feladat = Hanoi(("P", "P", "P", "P", "P"), ("R", "R", "R", "R", "R"))
 
+    result1 = melysegi_fakereso(feladat)
+    print(result1.megoldas())
     print(feladat.rakovetkezo(("P", "P")))
 
 
