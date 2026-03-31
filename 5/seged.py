@@ -60,8 +60,8 @@ class RendezettLista(Varolista):
         self.f = f
 
     def append(self, elem):
-        pár = RLElem(self.f(elem), elem)
-        bisect.insort(self.A, pár)
+        par = RLElem(self.f(elem), elem)
+        bisect.insort(self.A, par)
 
     def __len__(self):
         return len(self.A)

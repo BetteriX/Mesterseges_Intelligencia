@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
+from keres import *
 
-class Kiralyno:
+
+class Kiralyno(Feladat):
     def __init__(self, kezdo: tuple, cel: int):
         self.kezdo = kezdo
         self.cel = cel
@@ -16,7 +18,7 @@ class Kiralyno:
         for i in range(1, self.N + 1):
             elofeltetel = True  # lerak (s,i) alkalmazható?
             for m in range(1, s):  # bármely m < s sorok esetén:
-                if a[m - 1] != i and abs(m - s) != abs(a[m - 1] - i):
+                if a[m - 1] != i and abs(s - m) != abs(a[m - 1] - i):
                     elofeltetel = True
                 else:
                     elofeltetel = False
@@ -26,16 +28,28 @@ class Kiralyno:
                 uj_allapot = list(a)
                 uj_allapot[s - 1] = i
                 uj_allapot[self.N] = s + 1
-
-                gyerekek.append(tuple(uj_allapot))
+                gyerekek.append((f"({s},{i})", tuple(uj_allapot)))
 
         return gyerekek
 
 
 def main():
-    feladat = Kiralyno((0, 0, 0, 0, 0, 0, 0, 0, 1), 9)
+    feladat1 = Kiralyno((0, 0, 0, 0, 1), 5)
+    feladat2 = Kiralyno((0, 0, 0, 0, 0, 0, 0, 0, 1), 9)
 
-    print(feladat.rakovetkezo(feladat.kezdo))
+    print("szélességi fakereső:")
+    result1 = szelessegi_fakereso(feladat2)
+    print(result1.megoldas())
+    ut = result1.ut()
+    ut.reverse()
+    print(ut)
+
+    print("mélységi fakereső:")
+    result2 = melysegi_fakereso(feladat2)
+    print(result2.megoldas())
+    ut = result2.ut()
+    ut.reverse()
+    print(ut)
 
 
 if __name__ == "__main__":

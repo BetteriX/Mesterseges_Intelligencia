@@ -11,10 +11,10 @@ class Kancsok(Feladat):
         self.Max2 = 5
         self.Max3 = 8
 
-    def célteszt(self, a):  # a =(a1,a2,a3) állapot
+    def celteszt(self, a):  # a =(a1,a2,a3) állapot
         return a[0] == self.cél or a[1] == self.cél or a[2] == self.cél
 
-    def rákövetkező(self, a):  # a =(a1,a2,a3) állapot
+    def rakovetkezo(self, a):  # a =(a1,a2,a3) állapot
         gyerekek = []
         a1, a2, a3 = a
 
@@ -59,16 +59,19 @@ def heurisztika(csucs):
 if __name__ == "__main__":
     feladat = Kancsok((0, 0, 8), 4)
     print("Szélessig fakereső")
-    result = szelessegi_fakereso(feladat)
-    print(result.megoldás())
-    utam = result.út()
+    result1 = szelessegi_fakereso(feladat)
+    print(result1.megoldas())
+    utam = result1.ut()
+    utam.reverse()
+    print(utam)
+
+    print("melysegi grafkereso")
+    result2 = melysegi_fakereso(feladat)
+    print(result2.megoldas())
+    utam = result2.ut()
     utam.reverse()
     print(utam)
 
     print("best-first")
     result2 = best_first(feladat, heurisztika)
-    print(result2.megoldas())
-
-    print("melysegi grafkereso")
-    result2 = melysegi_fakereso(feladat)
     print(result2.megoldas())

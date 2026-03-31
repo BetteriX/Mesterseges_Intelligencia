@@ -1,9 +1,5 @@
-#!/usr/bin/env python3
-
 import sys
-
 from seged import *
-# from seged import *
 
 
 class Feladat:
@@ -108,9 +104,15 @@ def melysegi_grafkereso(feladat):
     return grafkereses(feladat, Verem())
 
 
-def main():
-    pass
+def best_first(feladat, heurisztika):
+    return grafkereses(feladat, RendezettLista(heurisztika))
 
 
-if __name__ == "__main__":
-    main()
+def a_csillag(feladat, heurisztika):
+    def f(csucs):
+        return csucs.utkoltseg + heurisztika(csucs)
+
+    return best_first(feladat, f)
+
+
+# Hiányzik a megoldás

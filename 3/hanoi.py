@@ -3,45 +3,45 @@
 from keres import *
 
 
-class Hanoi:
+class Hanoi(Feladat):
     def __init__(self, kezdo: tuple, cel: tuple):
         self.kezdo = kezdo
         self.cel = cel
+        self.N = len(kezdo)
 
     def celteszt(self, a: tuple):  # a=(a1, a2, ..., an)
         return a == self.cel
 
     def rakovetkezo(self, a: tuple):
         gyerekek = []
-        n = len(a)  # Korongok száma
 
-        for melyiket in range(0, n):
-            for hova in ["P", "Q", "R"]:  # Átrak melyiket hova
-                tmp = True
+        for melyiket in range(0, self.N):
+            for hova in ["P", "Q", "R"]:
+                tmp = True  # feltételezem, hogy  alkalmazható
                 if a[melyiket] != hova:
                     for i in range(0, melyiket):
                         if a[i] != a[melyiket] and a[i] != hova:
-                            tmp = True
+                            pass
                         else:
                             tmp = False
                             break
                 else:
                     tmp = False
 
-            if tmp:
-                uj_allapot = list(a)
-                uj_allapot[melyiket] = hova
-                gyerekek.append(tuple(uj_allapot))
+                if tmp:
+                    gyerek_allapot = list(a)
+                    gyerek_allapot[melyiket] = hova
+                    gyerekek.append((f"{melyiket}-> {hova}", tuple(gyerek_allapot)))
 
         return gyerekek
 
 
-def heurisztika1(csucs):
+def heurisztika(csucs):
     a = csucs.allapot
-    cel = ("R", "R", "R")
-    n = len(a)
+    n = len(a)  # korongok száma
+    # megszámoljuk hánőy legnagyobb korong nincs még  a helyén:
     for i in range(len(a) - 1, -1, -1):
-        if a[i] == cel[i]:
+        if a[i] == "R":
             n = n - 1
         else:
             break
@@ -50,15 +50,24 @@ def heurisztika1(csucs):
 
 
 def main():
-    feladat = Hanoi(("P", "P", "P", "P", "P"), ("R", "R", "R", "R", "R"))
+    feladat = Hanoi(("P", "P", "P", "P"), ("R", "R", "R", "R"))
+    feladat2 = Hanoi(("P", "P", "P"), ("R", "R", "R"))
 
-    result1 = melysegi_fakereso(feladat)
+    result1 = szelessegi_grafkereso(feladat)
     print(result1.megoldas())
-    print(feladat.rakovetkezo(("P", "P")))
+    ut = result1.ut()
+    ut.reverse()
+    print(ut)
+
+    result2 = melysegi_grafkereso(feladat)
+    print(result2.megoldas())
+    ut = result2.ut()
+    ut.reverse()
+    print(ut)
 
     print("best-first")
-    result2 = best_first(feladat, heurisztika1)
-    print(result2.megoldas())
+    result3 = best_first(feladat, heurisztika)
+    print(result3.megoldas())
 
 
 if __name__ == "__main__":
