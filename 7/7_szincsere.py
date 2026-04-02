@@ -29,14 +29,14 @@ class SzinCsere(Feladat):
 
         for i, c in enumerate(allapot):
             if c in ["G", "R"]:
-                for s in SZOMSZEDOK[i]:
-                    if allapot[s] == "0":
+                for j in SZOMSZEDOK[i]:
+                    if allapot[j] == "0":
                         uj = list(allapot)
-                        uj[s] = c
+                        uj[j] = c
                         uj[i] = "0"
 
-                        # print(f"{i}->{s}")
-                        yield (f"{i}->{s}", tuple(uj))
+                        # print(f"{i}->{j}")
+                        yield (f"{i}->{j}", tuple(uj))
 
 
 def heurisztika(csucs):
