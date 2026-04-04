@@ -3,118 +3,108 @@ from seged import *
 
 
 class Feladat:
-    def __init__(self, kezdo, cel=None):
-        self.kezdo = kezdo
-        self.cel = cel
 
-    def rakovetkezo(self, allapot):
+    def __init__(self, kezdő, cél=None):
+        self.kezdő = kezdő
+        self.cél = cél
+
+    def rákövetkező(self, állapot):
         raise NotImplementedError
 
-    def ertek(self):
+    def érték(self):
         raise NotImplementedError
 
-    def celteszt(self, allapot):
-        # return allapot == self.cel
-        raise NotImplementedError
+    def célteszt(self, állapot):
+       #return állapot == self.cél
+       raise NotImplementedError
 
-    def utkoltseg(self, c, allapot1, lepes, allapot2):
+    def útköltség(self, c, állapot1, lépés, állapot2):
         return c + 1
 
 
-class Csucs:
-    def __init__(self, allapot, szulo=None, lepes=None, utkoltseg=0):
-        self.allapot = allapot
-        self.szulo = szulo
-        self.lepes = lepes
-        self.utkoltseg = utkoltseg
-        if szulo:
-            self.melyseg = szulo.melyseg + 1
+class Csúcs:
+
+    def __init__(self, állapot, szülő=None, lépés=None, útköltség=0):
+        self.állapot = állapot
+        self.szülő = szülő
+        self.lépés = lépés
+        self.útköltség = útköltség
+        if szülő:
+            self.mélység = szülő.mélység + 1
         else:
-            self.melyseg = 0
+            self.mélység = 0
 
     def __repr__(self):
-        return "<Csúcs: %s>" % (self.allapot,)
+        return "<Csúcs: %s>" % (self.állapot, )
 
-        # return "%s" % (list(self.allapot),)
+        #return "%s" % (list(self.állapot),)
 
-    def ut(self):
-        x, valasz = self, [self]
-        while x.szulo:
-            valasz.append(x.szulo)
-            x = x.szulo
-        return valasz
+    def út(self):
+        x, válasz = self, [self]
+        while x.szülő:
+            válasz.append(x.szülő)
+            x = x.szülő
+        return válasz
 
-    def megoldas(self):
-        utam = self.ut()
+    def megoldás(self):
+        utam = self.út()
         utam.reverse()
-        return [csucs.lepes for csucs in utam[1:]]
+        return [csúcs.lépés for csúcs in utam[1:]]
 
     def kiterjeszt(self, feladat):
-        for muvelet, kovetkezo in feladat.rakovetkezo(self.allapot):
-            if kovetkezo not in [csucs.allapot for csucs in self.ut()]:
-                yield Csucs(
-                    kovetkezo,
-                    self,
-                    muvelet,
-                    feladat.utkoltseg(self.utkoltseg, self.allapot, muvelet, kovetkezo),
-                )
+        for (művelet, következő) in feladat.rákövetkező(self.állapot):
+            if következő not in [csúcs.állapot for csúcs in self.út()]:
+                yield Csúcs(következő, self, művelet,
+                            feladat.útköltség(self.útköltség, self.állapot, művelet,
+                                              következő))
 
 
-def fakereses(feladat: Feladat, perem: list):
-    perem.append(Csucs(feladat.kezdo))
+def fakereső(feladat, perem):
+    perem.append(Csúcs(feladat.kezdő))
     while perem:
-        csucs = perem.pop()
-        if feladat.celteszt(csucs.allapot):
-            return csucs
-        """
+        csúcs = perem.pop()
+        if feladat.célteszt(csúcs.állapot):
+            return csúcs
         else:
-            perem.extend(csucs.kiterjeszt(feladat))
-        """
+            perem.extend(csúcs.kiterjeszt(feladat))
 
     return None
 
+def  szélességi_fakereső(feladat):
+    return fakereső(feladat,Sor())
 
-def szelessegi_fakereso(feladat):
-    return fakereses(feladat, Sor())
-
-
-def melysegi_fakereso(feladat):
-    return fakereses(feladat, Verem())
+def  mélységi_fakereső(feladat):
+    return fakereső(feladat,Verem())
 
 
-def grafkereses(feladat, perem):
-    perem.append(Csucs(feladat.kezdo))
-    kifejtesi_sor = set()
+def gráfkereső(feladat, perem):
+    kifejtési_sor = set()
+    perem.append(Csúcs(feladat.kezdő))
     while perem:
-        csucs = perem.pop()
-        if feladat.celteszt(csucs.allapot):
-            return csucs
-        if csucs.allapot not in kifejtesi_sor:
-            kifejtesi_sor.add(csucs.allapot)
-            perem.extend(csucs.kiterjeszt(feladat))
-
-        """
-        else:
-            perem.extend(csucs.kiterjeszt(feladat))
-        """
+        csúcs = perem.pop()
+        if feladat.célteszt(csúcs.állapot):
+            return csúcs
+        if csúcs.állapot not in kifejtési_sor:
+            kifejtési_sor.add(csúcs.állapot)
+            perem.extend(csúcs.kiterjeszt(feladat))
 
     return None
 
-
-def szelessegi_grafkereso(feladat):
-    return grafkereses(feladat, Sor())
-
-
-def melysegi_grafkereso(feladat):
-    return grafkereses(feladat, Verem())
+def szélességi_gráfkereső(feladat):
+    return gráfkereső(feladat, Sor())
+def mélységi_gráfkereső(feladat):
+    return gráfkereső(feladat, Verem())
 
 
 def best_first(feladat, heurisztika):
-    return grafkereses(feladat, RendezettLista(heurisztika))
-
+    return gráfkereső(feladat,RendezettLista(heurisztika))
 
 def a_csillag(feladat, heurisztika):
-    def f(csucs):
-        return csucs.utkoltseg + heurisztika(csucs)
+    def f(csúcs):
+        return csúcs.útköltség + heurisztika(csúcs)
 
-    return best_first(feladat, f)
+    return best_first(feladat,f)
+
+
+
+

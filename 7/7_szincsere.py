@@ -23,10 +23,9 @@ class SzinCsere(Feladat):
         self.cel = cel
 
     def celteszt(self, allapot):
-        return allapot == cel
+        return allapot == self.cel
 
     def rakovetkezo(self, allapot):
-
         for i, c in enumerate(allapot):
             if c in ["G", "R"]:
                 for j in SZOMSZEDOK[i]:
@@ -50,7 +49,7 @@ def heurisztika(csucs):
     return osszeg
 
 
-if __name__ == "__main__":
+def main():
     kezdo = ("G", "G", "G", "0", "0", "0", "0", "R", "R", "R")
     cel = ("R", "R", "R", "0", "0", "0", "0", "G", "G", "G")
 
@@ -75,3 +74,7 @@ if __name__ == "__main__":
     result3 = a_csillag(feladat, heurisztika)
     print(result3.megoldas())
     print("Lépések száma:", len(result3.megoldas()))
+
+
+if __name__ == "__main__":
+    main()
