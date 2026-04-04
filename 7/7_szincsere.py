@@ -18,19 +18,19 @@ SZOMSZEDOK = {
 
 
 class SzinCsere(Feladat):
-    def __init__(self, kezdo, cel):
-        self.kezdo = kezdo
-        self.cel = cel
+    def __init__(self, kezdő, cél):
+        self.kezdő = kezdő
+        self.cél = cél
 
-    def celteszt(self, allapot):
-        return allapot == self.cel
+    def célteszt(self, állapot):
+        return állapot == self.cél
 
-    def rakovetkezo(self, allapot):
-        for i, c in enumerate(allapot):
+    def rákövetkező(self, állapot):
+        for i, c in enumerate(állapot):
             if c in ["G", "R"]:
                 for j in SZOMSZEDOK[i]:
-                    if allapot[j] == "0":
-                        uj = list(allapot)
+                    if állapot[j] == "0":
+                        uj = list(állapot)
                         uj[j] = c
                         uj[i] = "0"
 
@@ -39,12 +39,12 @@ class SzinCsere(Feladat):
 
 
 def heurisztika(csucs):
-    allapot = csucs.allapot
+    állapot = csucs.állapot
     osszeg = 0
     for i in range(10):
-        if allapot[i] == "G":
+        if állapot[i] == "G":
             osszeg += abs(i - 8)
-        elif allapot[i] == "R":
+        elif állapot[i] == "R":
             osszeg += abs(i - 1)
     return osszeg
 
@@ -61,19 +61,19 @@ def main():
     """
 
     print("Szelessegi grafkereso")
-    result1 = szelessegi_grafkereso(feladat)
-    print(result1.megoldas())
-    print("Lépések száma:", len(result1.megoldas()))
+    result1 = szélességi_gráfkereső(feladat)
+    print(result1.megoldás())
+    print("Lépések száma:", len(result1.megoldás()))
 
     print("Melysegi grafkereso")
-    result2 = melysegi_grafkereso(feladat)
-    print(result2.megoldas())
-    print("Lépések száma:", len(result2.megoldas()))
+    result2 = mélységi_gráfkereső(feladat)
+    print(result2.megoldás())
+    print("Lépések száma:", len(result2.megoldás()))
 
     print("A csillag")
     result3 = a_csillag(feladat, heurisztika)
-    print(result3.megoldas())
-    print("Lépések száma:", len(result3.megoldas()))
+    print(result3.megoldás())
+    print("Lépések száma:", len(result3.megoldás()))
 
 
 if __name__ == "__main__":

@@ -4,15 +4,15 @@ from keres import *
 
 
 class Laptologatas(Feladat):
-    def __init__(self, kezdo, cel):
-        self.kezdo = kezdo
-        self.cel = cel
+    def __init__(self, kezdő, cél):
+        self.kezdő = kezdő
+        self.cél = cél
 
-    def celteszt(self, allapot):
-        return allapot == self.cel
+    def célteszt(self, állapot):
+        return állapot == self.cél
 
-    def rakovetkezo(self, allapot):
-        lista = list(allapot)
+    def rákövetkező(self, állapot):
+        lista = list(állapot)
         cols = 7
         for ures, ertek in enumerate(lista):
             if ertek == 0:
@@ -32,12 +32,12 @@ class Laptologatas(Feladat):
                             yield (f"{akt}->{ures}", tuple(uj))
 
 
-def heurisztika(csucs):
-    allapot = csucs.allapot
+def heurisztika(csúcs):
+    állapot = csúcs.állapot
     return sum(
         1
-        for i in range(len(allapot))
-        if allapot[i] not in ("X", 0) and allapot[i] != cel[i]
+        for i in range(len(állapot))
+        if állapot[i] not in ("X", 0) and állapot[i] != cel[i]
     )
 
 
@@ -62,19 +62,19 @@ def main():
     feladat = Laptologatas(kezdo, cel)
     """
     print("Szelessegi grafkereso")
-    result1 = szelessegi_grafkereso(feladat)
-    print(result1.megoldas())
-    print("Lépések száma:", len(result1.megoldas()))
+    result1 = szélességi_gráfkereső(feladat)
+    print(result1.megoldás())
+    print("Lépések száma:", len(result1.megoldás()))
 
     print("Melysegi grafkereso")
-    result2 = melysegi_grafkereso(feladat)
-    print(result2.megoldas())
-    print("Lépések száma:", len(result2.megoldas()))
+    result2 = mélységi_gráfkereső(feladat)
+    print(result2.megoldás())
+    print("Lépések száma:", len(result2.megoldás()))
     """
     print("A csillag")
     result3 = a_csillag(feladat, heurisztika)
-    print(result3.megoldas())
-    print("Lépések száma:", len(result3.megoldas()))
+    print(result3.megoldás())
+    print("Lépések száma:", len(result3.megoldás()))
 
 
 if __name__ == "__main__":
