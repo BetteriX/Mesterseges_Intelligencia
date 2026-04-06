@@ -12,7 +12,6 @@ class Korong(Feladat):
         return állapot == self.cél
 
     def rákövetkező(self, állapot):
-
         utodok = []
         n = len(állapot)
         for i in range(2, n + 1):
@@ -36,7 +35,7 @@ class Korong(Feladat):
         return res_db
 
 
-if __name__ == "__main__":
+def main():
     kezdo = (6, 7, 3, 2, 8, 5, 4, 1)
     cel = (1, 2, 3, 4, 5, 6, 7, 8)
 
@@ -55,3 +54,7 @@ if __name__ == "__main__":
     ut = result2.út()
     ut.reverse()
     print(ut)
+
+
+if __name__ == "__main__":
+    main()

@@ -56,9 +56,8 @@ class TablaKorongok(Feladat):
         return állapot == self.cél
 
 
-def heurisztika(csúcs):
+def heurisztika(csúcs, cél):
     aktuális = csúcs.állapot
-    cél = feladat.cél
     hiba = 0
     for s in range(len(aktuális)):
         for o in range(len(aktuális)):
@@ -68,7 +67,7 @@ def heurisztika(csúcs):
     return hiba
 
 
-if __name__ == "__main__":
+def main():
     kezdő = (
         ("k", "k", "k", "p", "p"),
         ("k", "k", "k", "p", "p"),
@@ -87,22 +86,21 @@ if __name__ == "__main__":
 
     feladat = TablaKorongok(kezdő, cél)
 
-    # print('Szélességi gráfkereső')
-    # result1 = szélességi_gráfkereső(feladat)
-    # print(result1.megoldás())
-    # print('Szélességi fakereső')
-    # result2 = szélességi_fakereső(feladat)
-    # print(result2.megoldás())
+    """
+    print('Szélességi gráfkereső')
+    result1 = szélességi_gráfkereső(feladat)
+    print(result1.megoldás())
     print("Mélységi gráfkereső")
     result3 = mélységi_gráfkereső(feladat)
     print(result3.megoldás())
-    print("Mélységi fakereső")
-    result4 = mélységi_fakereső(feladat)
-    print(result4.megoldás())
-
+    """
     print("Best First")
-    result5 = best_first(feladat, heurisztika)
+    result5 = best_first(feladat, lambda cs: heurisztika(cs, feladat.cél))
     print(result5.megoldás())
     print("A Csillag")
-    result6 = a_csillag(feladat, heurisztika)
+    result6 = a_csillag(feladat, lambda cs: heurisztika(cs, feladat.cél))
     print(result6.megoldás())
+
+
+if __name__ == "__main__":
+    main()

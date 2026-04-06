@@ -48,7 +48,7 @@ class Domino(Feladat):
         return nullak_szama // 2
 
 
-if __name__ == "__main__":
+def main():
     kezdo_allapot = (
         (0, 0, 0, 0, 0, 0, 0, 0),
         (0, 0, 0, 0, 0, 0, 0, 0),
@@ -75,3 +75,7 @@ if __name__ == "__main__":
     eredmeny = best_first(feladat, feladat.heurisztika)
     print("Best-First: ")
     print(eredmeny.megoldás())
+
+
+if __name__ == "__main__":
+    main()

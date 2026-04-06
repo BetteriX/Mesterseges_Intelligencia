@@ -2,7 +2,6 @@ from keres import *
 
 # Mezők indexei:
 # A=0, B=1, C=2, D=3, E=4, F=5, G=6, H=7, I=8, J=9
-# Szomszédossági lista
 SZOMSZEDOK = {
     0: [1],  # A: B
     1: [0, 2, 3],  # B: A, C, D
@@ -34,7 +33,6 @@ class SzinCsere(Feladat):
                         uj[j] = c
                         uj[i] = "0"
 
-                        # print(f"{i}->{j}")
                         yield (f"{i}->{j}", tuple(uj))
 
 

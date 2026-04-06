@@ -52,7 +52,7 @@ class Sakk(Feladat):
         return nullak_szama
 
 
-if __name__ == "__main__":
+def main():
     kezdo_tabla = (
         ("x", 1, 0, 0, 0, 0, 0, "x"),
         (0, 0, 0, 0, 0, 0, 0, 0),
@@ -85,8 +85,11 @@ if __name__ == "__main__":
     print(result1.megoldás())
 
     """
-    print(result1.megoldás())
     ut = result1.út()
     ut.reverse()
     print(ut)
     """
+
+
+if __name__ == "__main__":
+    main()

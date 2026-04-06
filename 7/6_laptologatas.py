@@ -60,34 +60,31 @@ def heurisztika(csúcs, feladat):
 
 
 def main():
-    # fmt: off
     kezdo = (
-        ('x', 'x', 'x', 4, 'x', 'x', 'x'),
-        ('x', 'x', 9, 11, 7, 'x', 'x'),
-        ('x', 10, 8, 14, 6, 5, 'x'),
-        (2, 0, 0, 13, 1, 3, 12)
+        ("x", "x", "x", 4, "x", "x", "x"),
+        ("x", "x", 9, 11, 7, "x", "x"),
+        ("x", 10, 8, 14, 6, 5, "x"),
+        (2, 0, 0, 13, 1, 3, 12),
     )
 
     cel = (
-        ('x', 'x', 'x', 1, 'x', 'x', 'x'),
-        ('x', 'x', 2, 3, 4, 'x', 'x'),
-        ('x', 5, 6, 7, 8, 9, 'x'),
-        (10, 11, 12, 13, 14, 0, 0)
+        ("x", "x", "x", 1, "x", "x", "x"),
+        ("x", "x", 2, 3, 4, "x", "x"),
+        ("x", 5, 6, 7, 8, 9, "x"),
+        (10, 11, 12, 13, 14, 0, 0),
     )
-    # fmt: on
 
     feladat = Laptologatas(kezdo, cel)
     """
     print("Szelessegi grafkereso")
     result1 = szélességi_gráfkereső(feladat)
     print(result1.megoldás())
-    print("Lépések száma:", len(result1.megoldás()))
 
     print("Melysegi grafkereso")
     result2 = mélységi_gráfkereső(feladat)
     print(result2.megoldás())
-    print("Lépések száma:", len(result2.megoldás()))
     """
+
     print("Best-First")
     result3 = best_first(feladat, lambda cs: heurisztika(cs, feladat))
     print(result3.megoldás())
