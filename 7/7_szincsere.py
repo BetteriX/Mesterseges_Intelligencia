@@ -55,11 +55,6 @@ def main():
 
     feladat = SzinCsere(kezdo, cel)
 
-    """ Ki kelett kommentelni hogy münködjön
-    else:
-        perem.extend(csucs.kiterjeszt(feladat))
-    """
-
     print("Szelessegi grafkereso")
     result1 = szélességi_gráfkereső(feladat)
     print(result1.megoldás())
@@ -74,6 +69,11 @@ def main():
     result3 = a_csillag(feladat, heurisztika)
     print(result3.megoldás())
     print("Lépések száma:", len(result3.megoldás()))
+
+    print("Best-first")
+    result4 = best_first(feladat, heurisztika)
+    print(result4.megoldás())
+    print("Lépések száma:", len(result4.megoldás()))
 
 
 if __name__ == "__main__":

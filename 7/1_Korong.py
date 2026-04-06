@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from keres import *
 
 
@@ -21,17 +23,13 @@ class Korong(Feladat):
         return utodok
 
     def heurisztika(self, csúcs):
-
         állapot = csúcs.állapot
-
         res_db = 0
         n = len(állapot)
-
         for i in range(1, n):
             kulonbseg = abs(állapot[i] - állapot[i - 1])
             if kulonbseg != 1:
                 res_db += 1
-
         if állapot[-1] != self.cél[-1]:
             res_db += 1
 
