@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+# Kaggle datasetel kiboviteni
 import streamlit as st
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import MultinomialNB
