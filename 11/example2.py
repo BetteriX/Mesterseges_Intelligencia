@@ -5,7 +5,10 @@ from numpy import loadtxt
 from keras.models import Sequential
 from keras.layers import Dense
 
+from tqdm.keras import TqdmCallback
 
+
+# from keras_tqdm import TQDMNotebookCallback
 def main():
     # load the dataset
     dataset = loadtxt("pima-indians-diabetes.csv", delimiter=",")
@@ -15,12 +18,15 @@ def main():
     # define the keras model
     model = Sequential()
     model.add(Dense(12, input_dim=8, activation="relu"))
+    # model.add(Dense(18, input_dim=8, activation="relu"))
     model.add(Dense(8, activation="relu"))
     model.add(Dense(1, activation="sigmoid"))
     # compile the keras model
     model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
     # fit the keras model on the dataset
-    model.fit(X, y, epochs=150, batch_size=10)
+    model.fit(
+        X, y, epochs=150, batch_size=10, verbose=0, callbacks=[TqdmCallback(verbose=1)]
+    )
     # evaluate the keras model
     _, accuracy = model.evaluate(X, y)
     print("Accuracy: %.2f" % (accuracy * 100))
