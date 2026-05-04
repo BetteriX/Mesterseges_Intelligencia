@@ -1,0 +1,12 @@
+1személyes
+    fa/gráf kereso
+    keres.py lehet megkell írni
+    gráfrajz mint ahogy órán
+
+2személyes
+    állapotért megírni
+    my_jatek.py minimax alfabéta lehet megkell írni
+    minimax fa bemutatás
+
+béz model
+neurális háló
