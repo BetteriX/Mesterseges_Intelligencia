@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import classification_report, confusion_matrix
 
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 # 1. Adatok betöltése
 iris = datasets.load_iris()
@@ -35,7 +35,7 @@ print(confusion_matrix(y_test, y_pred))
 print("\nClassification Report:")
 print(classification_report(y_test, y_pred))
 
-
+"""
 plt.figure(figsize=(8, 6))
 for i, color in zip(range(3), ["red", "blue", "green"]):
     plt.scatter(
@@ -50,3 +50,4 @@ plt.title("Iris tesztadatok - Valós osztályok")
 plt.legend()
 plt.grid(True)
 plt.show()
+"""

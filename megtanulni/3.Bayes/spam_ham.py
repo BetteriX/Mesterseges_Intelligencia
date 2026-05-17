@@ -1,31 +1,15 @@
 #!/usr/bin/env python3
 
 import streamlit as st
-import csv
+import pandas as pd
+
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import MultinomialNB
 
+dataset = pd.read_csv("spam_ham_dataset.csv")
 
-# 1. Betöltöm az adatszerkezetett
-def load_dataset(file_name: str, text_row: str, label_row: str):
-    texts = []
-    labels = []
-
-    with open(file_name, encoding="utf-8") as f:
-        csv.DictReader(f)
-        reader = csv.DictReader(f)
-
-        for row in reader:
-            text = row[text_row]
-            label_num = int(row[label_row])
-
-            texts.append(text)
-            labels.append(label_num)
-
-    return texts, labels
-
-
-texts, labels = load_dataset("spam_ham_dataset.csv", "text", "label_num")
+texts = dataset["text"]
+labels = dataset["label_num"]
 
 # 2. Szöveg vektorizálás és modell tanítása
 vectorizer = CountVectorizer()
