@@ -42,7 +42,6 @@ def kerdez_jatekos(jatek, allapot):
     return num_or_str(input("Mit lép? "))
 
 
-# Keresesi methodusok
 def minimax(allapot, jatek: Jatek):
     jatekos = jatek.kovetkezik(allapot)
 
@@ -58,57 +57,18 @@ def minimax(allapot, jatek: Jatek):
 
     fiai_ertekei = [(a, min_ertek(s)) for (a, s) in jatek.rakovetkezo(allapot)]
     lepes, ertek = max(fiai_ertekei, key=lambda a_s: a_s[1])
+
     return lepes
 
 
-def minimax_jatekos(jatek, allapot):
+def minimax_jatekos(jatek: Jatek, allapot):
     return minimax(allapot, jatek)
-
 
 def alfabeta_kereses(allapot, jatek: Jatek, d=4, levagas_teszt=None, kiertekel=None):
     jatekos = jatek.kovetkezik(allapot)
-
-    def max_ertek(allapot, alfa, beta, melyseg):
-        if levagas_teszt(allapot, melyseg):
-            return kiertekel(allapot)
-        v = float("-inf")
-        for _, s in jatek.rakovetkezo(allapot):
-            v = max(v, min_ertek(s, alfa, beta, melyseg + 1))
-            if v >= beta:
-                return v
-            alfa = max(alfa, v)
-        return v
-
-    def min_ertek(allapot, alfa, beta, melyseg):
-        if levagas_teszt(allapot, melyseg):
-            return kiertekel(allapot)
-        v = float("-inf")
-        for _, s in jatek.rakovetkezo(allapot):
-            v = min(v, max_ertek(s, alfa, beta, melyseg + 1))
-            if v <= alfa:
-                return v
-            beta = min(beta, v)
-        return v
-
-    levagas_teszt = levagas_teszt or (
-        lambda allapot, melyseg: melyseg > d or jatek.levele(allapot)
-    )
-    kiertekel = kiertekel or (lambda allapot: jatek.hasznossag(allapot, jatekos))
-
-    alfa = float("-inf")
-    legjobb_lepes = None
-    for a, s in jatek.rakovetkezo(allapot):
-        v = min_ertek(s, alfa, float("inf"), 0)
-        if v > alfa:
-            alfa = v
-            legjobb_lepes = a
-
-    return legjobb_lepes
-
-
-def alfabeta_jatekos(jatek: Jatek, allapot):
-    return alfabeta_kereses(allapot, jatek)
-
+    
+    def max_ertek(allapot):
+        
 
 # TIC-TAC TOE OSZTALY
 class TicTacToe(Jatek):

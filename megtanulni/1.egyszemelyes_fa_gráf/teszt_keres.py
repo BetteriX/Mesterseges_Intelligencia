@@ -59,28 +59,28 @@ class Csúcs:
         return "<Csúcs: %s>" % (self.állapot,)
 
 
-def fakereső(feladat: Feladat, perem):
+def fakereső(feladat: Feladat, perem: list):
     perem.append(Csúcs(feladat.kezdő))
 
     while perem:
         csúcs = perem.pop()
-        if feladat.célteszt(csúcs):
+        if feladat.célteszt(csúcs.állapot):
             return csúcs
         else:
             perem.extend(csúcs.kiterjeszt(feladat))
 
-    return perem
+    return None
 
 
-def szélességi_fakereső(feladat):
+def szélességi_fakereső(feladat: Feladat):
     return fakereső(feladat, Sor())
 
 
-def mélységi_fakereső(feladat):
+def mélységi_fakereső(feladat: Feladat):
     return fakereső(feladat, Verem())
 
 
-def gráfkereső(feladat: Feladat, perem):
+def gráfkereső(feladat: Feladat, perem: list):
     kifejtési_sor = set()
     perem.append(Csúcs(feladat.kezdő))
 
@@ -90,10 +90,10 @@ def gráfkereső(feladat: Feladat, perem):
             return csúcs
 
         if csúcs.állapot not in kifejtési_sor:
-            kifejtési_sor.add(csúcs)
+            kifejtési_sor.add(csúcs.állapot)
             perem.extend(csúcs.kiterjeszt(feladat))
 
-    return perem
+    return None
 
 
 def szélességi_gráfkereső(feladat: Feladat):

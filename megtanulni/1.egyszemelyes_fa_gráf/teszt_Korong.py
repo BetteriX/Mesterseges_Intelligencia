@@ -41,6 +41,13 @@ def main():
 
     feladat = Korong(kezdo, cel)
 
+    print("Szélességi fakereső: ")
+    result = szélességi_fakereső(feladat)
+    print(result.megoldás())
+    ut = result.út()
+    ut.reverse()
+    print(ut)
+
     print("Szélességi gráfkereső: ")
     result1 = szélességi_gráfkereső(feladat)
     print(result1.megoldás())
